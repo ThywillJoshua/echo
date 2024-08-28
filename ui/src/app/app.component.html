@@ -1,0 +1,26 @@
+<main class="main">
+  @if (commitState() === ICommitState.Idle && output()) {
+  <div class="loading-bar"></div>
+  }
+
+  <div class="content">
+    @if (output()) {
+    <div
+      class="output"
+      [class.idle]="ICommitState.Idle === commitState()"
+      [class.error]="ICommitState.Error === commitState()"
+      [class.success]="ICommitState.Success === commitState()"
+    >
+      <p [innerHTML]="output() | replaceST"></p>
+    </div>
+    } @else {
+    <textarea #input></textarea>
+    }
+  </div>
+
+  @if (output()) {
+  <button class="close" (click)="close()">Close App</button>
+  } @else {
+  <button class="commit" (click)="commit()">Commit</button>
+  }
+</main>
